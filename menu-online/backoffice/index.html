@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com;
+                 script-src 'self';
+                 style-src 'self' https://fonts.googleapis.com;
+                 img-src 'self' data: blob:;
+                 font-src https://fonts.gstatic.com;">
+  <!-- Impede indexação por motores de busca -->
+  <meta name="robots" content="noindex, nofollow">
+  <title>Backoffice | Menu Online</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ── LOGIN ───────────────────────────────────────────── -->
+  <div id="login-screen" class="login-screen" role="main">
+    <div class="login-screen__bg" role="presentation"></div>
+    <div class="login-card">
+
+      <div class="login-card__logo">
+        <!-- Substitui pelo teu logótipo -->
+        <span class="login-card__logo-text">Menu Online</span>
+      </div>
+
+      <div class="login-card__rule" role="presentation"></div>
+      <span class="login-card__label">Gestão da Ementa</span>
+
+      <div class="form-group">
+        <label class="form-label" for="login-user">Utilizador</label>
+        <input type="text" id="login-user" class="form-input"
+               placeholder="admin" autocomplete="username" spellcheck="false">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="login-pass">Palavra-passe</label>
+        <input type="password" id="login-pass" class="form-input"
+               placeholder="••••••" autocomplete="current-password">
+      </div>
+
+      <button id="btn-login" class="btn btn--primary btn--primary-full">Entrar</button>
+      <p id="login-error" class="login-error" role="alert" aria-live="polite"></p>
+
+    </div>
+  </div>
+
+
+  <!-- ── APP ─────────────────────────────────────────────── -->
+  <div id="app" class="app" aria-hidden="true">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar__brand">
+        <span class="topbar__brand-name">Menu Online</span>
+        <span class="topbar__sep" role="presentation"></span>
+        <span class="topbar__module">Backoffice</span>
+      </div>
+      <div class="topbar__actions">
+        <a href="../ementa/index.html" target="_blank" rel="noopener noreferrer"
+           class="topbar__link-ementa">Ver Ementa ↗</a>
+        <button id="btn-logout" class="topbar__btn-logout" aria-label="Terminar sessão">
+          Sair
+        </button>
+      </div>
+    </header>
+
+    <!-- BODY -->
+    <div class="app-body">
+
+      <!-- SIDEBAR -->
+      <nav class="sidebar" aria-label="Categorias">
+        <p class="sidebar__section-label">Categorias</p>
+        <div id="sidebar-nav"></div>
+      </nav>
+
+      <!-- CONTENT -->
+      <main class="content" id="main-content">
+        <div class="content__header">
+          <div class="content__titles">
+            <h1 class="content__title" id="content-title">–</h1>
+            <p  class="content__subtitle" id="content-sub"></p>
+          </div>
+          <button id="btn-add" class="btn btn--primary">+ Adicionar Item</button>
+        </div>
+        <div id="items-container"></div>
+      </main>
+
+    </div>
+  </div>
+
+
+  <!-- ── MODAL: criar / editar ───────────────────────────── -->
+  <div id="modal-overlay" class="modal-overlay"
+       role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal">
+
+      <div class="modal__header">
+        <h2 class="modal__title" id="modal-title">Novo Item</h2>
+        <button class="modal__close" id="modal-close" aria-label="Fechar">✕</button>
+      </div>
+
+      <div class="modal__body">
+        <div class="form-group">
+          <label class="form-label" for="f-subcat">Subcategoria *</label>
+          <select id="f-subcat" class="form-input"></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f-nome">Nome *</label>
+          <input type="text" id="f-nome" class="form-input"
+                 placeholder="Nome do prato ou bebida" maxlength="120" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f-desc">Descrição</label>
+          <textarea id="f-desc" class="form-input" rows="2"
+                    placeholder="Ingredientes, preparação, notas..." maxlength="300"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f-preco">Preço (€) *</label>
+          <input type="number" id="f-preco" class="form-input"
+                 placeholder="0.00" step="0.01" min="0" max="9999">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f-alergenios">Alergénios</label>
+          <input type="text" id="f-alergenios" class="form-input"
+                 placeholder="Ex: (1, 2, 4)" maxlength="60" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Fotografia</label>
+          <div class="photo-drop" id="photo-drop" tabindex="0"
+               aria-label="Área de upload de fotografia">
+            <input type="file" id="f-foto"
+                   accept="image/jpeg,image/png,image/webp,image/gif"
+                   aria-label="Escolher fotografia">
+            <img id="photo-preview" class="photo-drop__preview" alt="Preview" style="display:none">
+            <p class="photo-drop__hint" id="photo-hint">
+              Clique ou arraste uma imagem
+              <small>JPG, PNG, WEBP · máx. 4 MB</small>
+            </p>
+          </div>
+          <button type="button" id="btn-remove-photo" class="btn--remove-photo">
+            ✕ Remover foto
+          </button>
+        </div>
+      </div>
+
+      <div class="modal__footer">
+        <button id="modal-cancel" class="btn btn--ghost">Cancelar</button>
+        <button id="modal-save"   class="btn btn--primary">Guardar</button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ── CONFIRM DELETE ──────────────────────────────────── -->
+  <div id="confirm-overlay" class="confirm-overlay"
+       role="alertdialog" aria-modal="true" aria-labelledby="confirm-title">
+    <div class="confirm-box">
+      <p class="confirm-box__title" id="confirm-title">Eliminar item?</p>
+      <p class="confirm-box__msg">
+        Esta acção não pode ser desfeita.<br>
+        O item será removido permanentemente da ementa.
+      </p>
+      <div class="confirm-box__actions">
+        <button id="confirm-cancel" class="btn btn--ghost">Cancelar</button>
+        <button id="confirm-del"    class="btn btn--danger">Eliminar</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── TOAST ───────────────────────────────────────────── -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+
+  <!-- Scripts — ordem importa -->
+  <script src="../shared/data.js"></script>
+  <script src="upload.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>

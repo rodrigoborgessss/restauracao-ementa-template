@@ -1,0 +1,463 @@
+/* ============================================================
+   menu-online · ementa/style.css
+
+   Tema escuro neutro. Para personalizar:
+     • Altera as variáveis em :root (cores, fontes, alturas)
+     • Substitui as Google Fonts no <head> do index.html
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Variáveis — personaliza aqui ──────────────────────────── */
+:root {
+  /* Cores principais */
+  --bg:           #1a1a2e;   /* fundo geral                    */
+  --bg-card:      #1f1f3a;   /* fundo dos cards / linhas       */
+  --bg-hover:     #252545;   /* hover nos cards                */
+  --accent:       #e0a045;   /* cor de destaque (dourado/outro) */
+  --accent-light: #f0c070;   /* versão mais clara do destaque  */
+  --accent-dim:   rgba(224,160,69,0.10);
+  --accent-border:rgba(224,160,69,0.18);
+  --text:         #f0ece0;   /* texto principal                */
+  --text-muted:   #80786a;   /* texto secundário               */
+  --text-muted2:  #504840;
+
+  /* Tipografia */
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans:  'Raleway', system-ui, sans-serif;
+
+  /* Layout */
+  --nav-h:  60px;
+  --tabs-h: 52px;
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; }
+a   { color: inherit; text-decoration: none; }
+
+/* ── NAV ──────────────────────────────────────────────────── */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 200;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.5rem;
+  background: linear-gradient(to bottom, rgba(26,26,46,0.97), rgba(26,26,46,0));
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background 0.3s;
+}
+
+.nav.scrolled { background: rgba(26,26,46,0.99); }
+
+.nav__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* Coloca aqui o teu logótipo:
+   <img> com filter:invert(1) para SVG escuro,
+   ou texto com a classe nav__logo-text */
+.nav__logo img {
+  height: 36px;
+  /* Se o teu SVG for escuro, adiciona: filter: brightness(0) invert(1); */
+}
+
+.nav__logo-text {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.nav__links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+.nav__links a {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text);
+  opacity: 0.6;
+  transition: opacity 0.2s, color 0.2s;
+}
+
+.nav__links a:hover { opacity: 1; color: var(--accent-light); }
+
+/* ── HERO ─────────────────────────────────────────────────── */
+.hero {
+  height: 52vh;
+  min-height: 300px;
+  max-height: 560px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 3.5rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Substitui o src da imagem hero em index.html */
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.28) saturate(0.7);
+  transform: scale(1.04);
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(26,26,46,0.1)  0%,
+    rgba(26,26,46,0.5)  55%,
+    var(--bg)           100%
+  );
+}
+
+.hero__content { position: relative; z-index: 2; }
+
+.hero__eyebrow {
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.9rem;
+}
+
+.hero__title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.hero__rule {
+  width: 36px; height: 1px;
+  background: var(--accent);
+  margin: 0 auto;
+  opacity: 0.5;
+}
+
+/* ── TABS ─────────────────────────────────────────────────── */
+.tabs-bar {
+  position: sticky;
+  top: var(--nav-h);
+  z-index: 100;
+  background: rgba(26,26,46,0.97);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--accent-border);
+}
+
+.tabs-bar__inner {
+  display: flex;
+  justify-content: flex-start;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-padding-left: 1.5rem;
+}
+
+.tabs-bar__inner::-webkit-scrollbar { display: none; }
+
+@media (min-width: 769px) {
+  .tabs-bar__inner { justify-content: center; }
+}
+
+.tab-btn {
+  flex-shrink: 0;
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 0 1.6rem;
+  height: var(--tabs-h);
+  cursor: pointer;
+  transition: color 0.22s, border-color 0.22s;
+  white-space: nowrap;
+}
+
+.tab-btn:hover  { color: var(--text); }
+.tab-btn.active { color: var(--accent-light); border-bottom-color: var(--accent); }
+
+/* ── MENU AREA ────────────────────────────────────────────── */
+.menu-area {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 3.5rem 2rem 6rem;
+}
+
+.cat-panel { display: none; }
+.cat-panel.active {
+  display: block;
+  animation: fadeUp 0.3s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SUBCATEGORIA ─────────────────────────────────────────── */
+.subcat { margin-bottom: 3rem; }
+
+.subcat__header {
+  margin-bottom: 1.4rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid var(--accent-border);
+}
+
+.subcat__title {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: var(--text);
+}
+
+.subcat__nota {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.5;
+  margin: 0.4rem 0 1rem;
+}
+
+/* ── CARD GRID ────────────────────────────────────────────── */
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1px;
+  background: var(--accent-border);
+  border: 1px solid var(--accent-border);
+}
+
+.item-card {
+  background: var(--bg-card);
+  overflow: hidden;
+  transition: background 0.2s;
+}
+
+.item-card:hover { background: var(--bg-hover); }
+
+.item-card__photo-wrap { overflow: hidden; }
+
+.item-card__photo {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  filter: brightness(0.85) saturate(0.85);
+  transition: transform 0.4s ease, filter 0.3s;
+}
+
+.item-card:hover .item-card__photo {
+  transform: scale(1.03);
+  filter: brightness(0.95) saturate(1);
+}
+
+.item-card__no-photo {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(135deg, var(--bg) 0%, var(--bg-card) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-card__no-photo svg { opacity: 0.07; width: 40px; height: 40px; }
+
+.item-card__body    { padding: 1.2rem 1.4rem 1.4rem; }
+
+.item-card__name {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  margin-bottom: 0.35rem;
+  line-height: 1.25;
+}
+
+.item-card__desc {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  font-weight: 300;
+  margin-bottom: 1rem;
+}
+
+.item-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.item-card__price {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
+.item-card__allergens {
+  font-size: 0.6rem;
+  color: var(--text-muted2);
+  letter-spacing: 0.04em;
+}
+
+/* ── LIST LAYOUT (bebidas, vinhos) ────────────────────────── */
+.wine-list { border: 1px solid var(--accent-border); }
+
+.wine-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: 1rem 2rem;
+  padding: 1.1rem 1.5rem;
+  border-bottom: 1px solid rgba(224,160,69,0.07);
+  background: var(--bg-card);
+  transition: background 0.2s;
+}
+
+.wine-item:last-child { border-bottom: none; }
+.wine-item:hover      { background: var(--bg-hover); }
+
+.wine-item__name {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 0.2rem;
+}
+
+.wine-item__desc {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  font-weight: 300;
+}
+
+.wine-item__price {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--accent);
+  white-space: nowrap;
+  padding-top: 0.1rem;
+}
+
+/* ── EMPTY STATE ──────────────────────────────────────────── */
+.empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-muted);
+  grid-column: 1 / -1;
+}
+
+.empty p {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 300;
+  font-style: italic;
+}
+
+/* ── NOTA ALERGÉNIOS ──────────────────────────────────────── */
+.allergen-note {
+  margin-top: 3rem;
+  padding: 1.2rem 1.5rem;
+  border: 1px solid var(--accent-border);
+  background: var(--bg-card);
+}
+
+.allergen-note p {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+}
+
+.allergen-note strong { color: var(--accent); font-weight: 500; }
+
+/* ── FOOTER ───────────────────────────────────────────────── */
+.footer {
+  border-top: 1px solid var(--accent-border);
+  padding: 2rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer__logo img {
+  height: 26px;
+  opacity: 0.3;
+  /* adiciona filter se necessário */
+}
+
+.footer__copy {
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted2);
+}
+
+.footer__address {
+  font-size: 0.62rem;
+  color: var(--text-muted2);
+  line-height: 1.6;
+  text-align: right;
+}
+
+/* ── RESPONSIVE ───────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .nav { padding: 0 1.2rem; }
+  .nav__links { display: none; }
+  .menu-area { padding: 2rem 1rem 4rem; }
+  .items-grid { grid-template-columns: 1fr; }
+  .wine-item { grid-template-columns: 1fr; gap: 0.3rem; }
+  .footer { padding: 1.8rem 1.2rem; flex-direction: column; text-align: center; }
+  .footer__address { text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .tab-btn { padding: 0 0.8rem; font-size: 0.55rem; }
+  .item-card__body { padding: 1rem 1.1rem 1.2rem; }
+}

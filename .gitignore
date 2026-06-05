@@ -1,0 +1,23 @@
+node_modules/
+
+# Fotos uploadadas (não versionar — são específicas de cada instalação)
+assets/img/entradas/*
+assets/img/pratos/*
+assets/img/sobremesas/*
+assets/img/bebidas/*
+assets/img/vinhos/*
+# Mantém as pastas vazias
+!assets/img/entradas/.gitkeep
+!assets/img/pratos/.gitkeep
+!assets/img/sobremesas/.gitkeep
+!assets/img/bebidas/.gitkeep
+!assets/img/vinhos/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp

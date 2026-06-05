@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ── SEO: personaliza ──────────────────────────────────── -->
+  <meta name="description" content="Ementa do Restaurante — consulte os nossos pratos, bebidas e muito mais.">
+  <title>Ementa | O Meu Restaurante</title>
+
+  <!-- ── CSP básico ────────────────────────────────────────── -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com;
+                 script-src 'self';
+                 style-src 'self' https://fonts.googleapis.com;
+                 img-src 'self' data: blob:;
+                 font-src https://fonts.gstatic.com;">
+
+  <!-- ── Fontes: substitui à vontade ──────────────────────── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════════════
+       NAV
+       Substitui o conteúdo do nav__logo pelo teu logótipo.
+       Os nav__links são opcionais — remove se não precisares.
+       ══════════════════════════════════════════════════════ -->
+  <header>
+    <nav class="nav" role="navigation" aria-label="Navegação principal">
+
+      <a class="nav__logo" href="/" aria-label="Página principal">
+        <!-- Opção A: imagem/SVG -->
+        <!-- <img src="../assets/logo.svg" alt="Nome do Restaurante"> -->
+
+        <!-- Opção B: texto -->
+        <span class="nav__logo-text">O Meu Restaurante</span>
+      </a>
+
+      <!-- Links de navegação — opcional -->
+      <ul class="nav__links">
+        <li><a href="/">Início</a></li>
+        <li><a href="/reservas">Reservas</a></li>
+      </ul>
+
+    </nav>
+  </header>
+
+
+  <!-- ══════════════════════════════════════════════════════
+       HERO
+       Substitui o background-image no CSS (.hero__bg)
+       ou adiciona inline: style="background-image:url('...')"
+       ══════════════════════════════════════════════════════ -->
+  <section class="hero" aria-label="Cabeçalho da ementa">
+    <div class="hero__bg"
+         style="background-image: url('../assets/hero.jpg')"
+         role="presentation"></div>
+    <div class="hero__overlay" role="presentation"></div>
+    <div class="hero__content">
+      <p class="hero__eyebrow">O Meu Restaurante</p>
+      <h1 class="hero__title">A Nossa Carta</h1>
+      <div class="hero__rule" role="presentation"></div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════
+       TABS
+       Os data-cat têm de corresponder às chaves em
+       CL_DEFAULT_DATA no ficheiro shared/data.js.
+       Adiciona ou remove botões conforme as tuas categorias.
+       ══════════════════════════════════════════════════════ -->
+  <div class="tabs-bar" role="navigation" aria-label="Categorias da ementa">
+    <div class="tabs-bar__inner" role="tablist">
+      <button class="tab-btn active" role="tab" aria-selected="true"
+              aria-controls="panel-entradas" data-cat="entradas">Entradas</button>
+      <button class="tab-btn" role="tab" aria-selected="false"
+              aria-controls="panel-pratos" data-cat="pratos">Pratos</button>
+      <button class="tab-btn" role="tab" aria-selected="false"
+              aria-controls="panel-sobremesas" data-cat="sobremesas">Sobremesas</button>
+      <button class="tab-btn" role="tab" aria-selected="false"
+              aria-controls="panel-bebidas" data-cat="bebidas">Bebidas</button>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════
+       PAINÉIS DE CONTEÚDO
+       Um painel por categoria — ids têm de ser "panel-<cat>".
+       O conteúdo é gerado dinamicamente por ementa/app.js.
+       ══════════════════════════════════════════════════════ -->
+  <main class="menu-area" id="main-content">
+
+    <div class="cat-panel active" id="panel-entradas"
+         role="tabpanel" aria-label="Entradas">
+      <div class="cat-inner"></div>
+    </div>
+
+    <div class="cat-panel" id="panel-pratos"
+         role="tabpanel" aria-label="Pratos">
+      <div class="cat-inner"></div>
+    </div>
+
+    <div class="cat-panel" id="panel-sobremesas"
+         role="tabpanel" aria-label="Sobremesas">
+      <div class="cat-inner"></div>
+    </div>
+
+    <div class="cat-panel" id="panel-bebidas"
+         role="tabpanel" aria-label="Bebidas">
+      <div class="cat-inner"></div>
+    </div>
+
+    <!-- Nota sobre alergénios — personaliza ou remove -->
+    <aside class="allergen-note" aria-label="Informação sobre alergénios">
+      <p>
+        <strong>Alergénios:</strong> Este estabelecimento disponibiliza informação
+        sobre substâncias que podem provocar alergias. Os números entre parêntesis
+        indicam os alergénios presentes em cada prato. Solicite informação ao colaborador.
+        &nbsp;·&nbsp; IVA incluído à taxa legal.
+      </p>
+    </aside>
+
+  </main>
+
+
+  <!-- ══════════════════════════════════════════════════════
+       FOOTER — personaliza
+       ══════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer__logo">
+      <!-- <img src="../assets/logo.svg" alt="Logo"> -->
+    </div>
+    <p class="footer__copy">© 2024 O Meu Restaurante</p>
+    <address class="footer__address" style="font-style:normal">
+      Rua Exemplo, Nº 1 · 0000-000 Cidade<br>
+      <a href="tel:+351000000000" style="color:inherit">000 000 000</a>
+    </address>
+  </footer>
+
+
+  <!-- Scripts — ordem importa -->
+  <script src="../shared/data.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>

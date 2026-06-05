@@ -1,0 +1,12 @@
+{
+  "name": "menu-online",
+  "version": "1.0.0",
+  "description": "Ementa online para restaurantes — template open source",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "multer": "^1.4.5-lts.1"
+  }
+}
