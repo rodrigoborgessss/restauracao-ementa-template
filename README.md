@@ -1,4 +1,4 @@
-# menu-online
+# Ementa Online
 
 **Ementa digital para restaurantes** — simples de instalar, fácil de personalizar.
 
